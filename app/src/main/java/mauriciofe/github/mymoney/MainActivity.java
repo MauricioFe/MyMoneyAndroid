@@ -21,6 +21,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
 import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
+import mauriciofe.github.mymoney.Tasks.PostCategoria;
+import mauriciofe.github.mymoney.http.conexao.RequestHttp;
 import mauriciofe.github.mymoney.models.Categoria;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,13 +35,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         categoriaList = new ArrayList<>();
         trustEveryone();
-        buscaDados("https://192.168.0.10:44387/api/Categoria");
+        //buscaDados("https://192.168.0.10:44387/api/Categoria");
         inserirDados("https://192.168.0.10:44387/api/Categoria");
     }
-
+//    private void requestData(String uri){
+//        if (isOnline()) {
+//            RequestHttp requestHttp = new RequestHttp();
+//            requestHttp.setMetodo("POST");
+//            requestHttp.setUrl(uri);
+//
+//            PostCategoria task = new PostCategoria(this);
+//            task.execute(requestHttp);
+//        }
+//    }
     private void inserirDados(String url) {
         if (isOnline()){
-
+            PostCategoria task = new PostCategoria(this);
+            task.execute(url);
+        }else{
+            new AlertDialog.Builder(this).setTitle("Erro de conexão")
+                    .setMessage("Erro ao conectar a internet. Verifique sua conexão")
+                    .setNeutralButton("OK", null).show();
         }
     }
 
