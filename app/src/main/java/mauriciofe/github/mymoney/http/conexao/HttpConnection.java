@@ -73,4 +73,34 @@ public class HttpConnection {
         }
     }
 
+    public static String putDados(String uri) {
+        String urlParameters = "Descricao=BaconEditado";
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod( "PUT" );
+            conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty( "charset", "utf-8");
+            conn.setDoOutput(true);
+
+            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+            writer.write(urlParameters);
+            writer.flush();
+
+            String line;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            writer.close();
+            reader.close();
+            return stringBuilder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
