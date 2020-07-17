@@ -3,14 +3,10 @@ package mauriciofe.github.mymoney;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -23,10 +19,8 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
-import javax.sql.ConnectionEvent;
 
-import mauriciofe.github.mymoney.http.conexao.HttpConnection;
-import mauriciofe.github.mymoney.http.parseJson.ParseCategoria;
+import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
 import mauriciofe.github.mymoney.models.Categoria;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +33,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         categoriaList = new ArrayList<>();
         trustEveryone();
-        buscaDados("https://192.168.0.8:44387/api/Categoria");
+        buscaDados("https://192.168.0.10:44387/api/Categoria");
+        inserirDados("https://192.168.0.10:44387/api/Categoria");
+    }
+
+    private void inserirDados(String url) {
+        if (isOnline()){
+
+        }
     }
 
     private boolean isOnline() {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void buscaDados(String url) {
         if (isOnline()) {
-            MyTask task = new MyTask();
+            GetDadosCategoria task = new GetDadosCategoria(this,categoriaList);
             task.execute(url);
         }else{
             new AlertDialog.Builder(this).setTitle("Erro de conexão")
@@ -59,25 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public class MyTask extends AsyncTask<String, String, String> {
 
-        @Override
-        protected String doInBackground(String... params) {
-            String content = HttpConnection.getDados(params[0]);
-            return content;
-        }
-
-        @Override
-        protected void onPostExecute(String conteudo) {
-            categoriaList = ParseCategoria.getCategoriasJson(conteudo);
-            if (categoriaList != null) {
-                for (Categoria item : categoriaList) {
-                    Log.i("Return API", "Id da categoria " + item.getId() + "\n" + "Descrição " + item.getDescricao() + "\n");
-                }
-            }
-        }
-    }
 
     /*Código para fazer conexão com urls e ssls não seguros*/
     private void trustEveryone() {
