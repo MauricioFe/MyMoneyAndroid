@@ -1,5 +1,7 @@
 package mauriciofe.github.mymoney.http.conexao;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -8,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 public class HttpConnection {
@@ -52,7 +55,7 @@ public class HttpConnection {
             conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestProperty( "charset", "utf-8");
             conn.setDoOutput(true);
-
+            //gerenciar o tráfego de rede. No sentido de consumir a rede.
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 
             writer.write(urlParameters);
@@ -101,6 +104,20 @@ public class HttpConnection {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void deleteDados(String uri) {
+        try{
+            URL url = new URL(uri);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty( "charset", "utf-8");
+            conn.setDoOutput(true);
+            conn.setRequestMethod("DELETE");
+            Log.i("retornoApi", "deleteDados: "+conn.getResponseCode());
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 }

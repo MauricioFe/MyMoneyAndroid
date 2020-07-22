@@ -20,6 +20,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import mauriciofe.github.mymoney.Tasks.DeleteCategoria;
 import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
 import mauriciofe.github.mymoney.Tasks.PostCategoria;
 import mauriciofe.github.mymoney.Tasks.PutCategoria;
@@ -38,8 +39,18 @@ public class MainActivity extends AppCompatActivity {
         trustEveryone();
         //buscaDados("https://192.168.0.10:44387/api/Categoria");
         //inserirDados("https://192.168.0.10:44387/api/Categoria");
-        editarDados("https://192.168.0.10:44387/api/Categoria/39");
+        //editarDados("https://192.168.0.10:44387/api/Categoria/39");
+        excluirDados("https://192.168.0.10:44387/api/Categoria/39");
+
     }
+
+    private void excluirDados(String uri) {
+        if (isOnline()){
+            DeleteCategoria task = new DeleteCategoria(this);
+            task.execute(uri);
+        }
+    }
+
     private void editarDados(String uri){
         if (isOnline()) {
             PutCategoria task = new PutCategoria(this);
