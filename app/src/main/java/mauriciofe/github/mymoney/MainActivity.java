@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         categoriaList = new ArrayList<>();
         trustEveryone();
         //buscaDados("https://192.168.0.10:44387/api/Categoria");
-        //inserirDados("https://192.168.0.10:44387/api/Categoria");
+        //inserirDados("https://192.168.18.23:44387/api/Categoria");
         //editarDados("https://192.168.0.10:44387/api/Categoria/39");
-        excluirDados("https://192.168.0.10:44387/api/Categoria/39");
+        excluirDados("https://192.168.18.23:44387/api/Categoria/22");
 
     }
 
