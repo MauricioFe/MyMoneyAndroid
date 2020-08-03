@@ -21,6 +21,10 @@ public class ResgisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resgister);
+        inicializarComponentes();
+    }
+
+    private void inicializarComponentes() {
         btnEntrar = findViewById(R.id.register_btn_entrar);
         edtEmail = findViewById(R.id.register_editText_email);
         edtSenha = findViewById(R.id.register_editText_senha);

@@ -61,7 +61,6 @@
         android:id="@+id/register_editText_senha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="184dp"
         android:ems="10"
         android:hint="@string/senha"

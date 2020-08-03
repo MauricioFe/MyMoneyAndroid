@@ -13,8 +13,7 @@ import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Usuario;
 
 public class HttpConnectionUsuario {
-    public static String login(String uri) {
-        Usuario usuario = new Usuario();
+    public static String login(String uri, Usuario usuario) {
         String urlParameters = ParseUsuario.login(usuario);
         StringBuilder stringBuilder = new StringBuilder();
         try {
