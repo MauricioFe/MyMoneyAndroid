@@ -3,7 +3,6 @@ package mauriciofe.github.mymoney.ui.activities;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,8 +25,6 @@ import mauriciofe.github.mymoney.Tasks.DeleteCategoria;
 import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
 import mauriciofe.github.mymoney.Tasks.PostCategoria;
 import mauriciofe.github.mymoney.Tasks.PutCategoria;
-import mauriciofe.github.mymoney.http.conexao.HttpConnection;
-import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Categoria;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,41 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public class Login extends AsyncTask<String, String, String> {
-        Context context;
-        private String token;
 
-        public Login(Context context) {
-            this.context = context;
-        }
-
-        public String enviaToken() {
-            if (token != null)
-                return token;
-            else
-                return null;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String conteudo = HttpConnection.login(params[0]);
-            return conteudo;
-        }
-
-        @Override
-        protected void onPostExecute(String conteudo) {
-            token = ParseUsuario.parseToken(conteudo);
-            buscaDados("https://192.168.0.14:44325/api/categorias/", token);
-        }
-    }
-
-    private void enviarLogin(String uri) {
-        if (isOnline()) {
-            Login task = new Login(this);
-            task.execute(uri);
-            token = task.enviaToken();
-        }
-    }
 
     private void excluirDados(String uri) {
         if (isOnline()) {

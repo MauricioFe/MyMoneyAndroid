@@ -6,7 +6,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import mauriciofe.github.mymoney.http.conexao.HttpConnection;
+import mauriciofe.github.mymoney.http.conexao.HttpConnectionCategoria;
 import mauriciofe.github.mymoney.http.parseJson.ParseCategoria;
 import mauriciofe.github.mymoney.models.Categoria;
 
@@ -21,7 +21,7 @@ public class GetDadosCategoria extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String content = HttpConnection.getDados(params[0], params[1]);
+        String content = HttpConnectionCategoria.getDados(params[0], params[1]);
         return content;
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import mauriciofe.github.mymoney.http.conexao.HttpConnection;
+import mauriciofe.github.mymoney.http.conexao.HttpConnectionCategoria;
 
 public class DeleteCategoria extends AsyncTask<String, String, String> {
     Context context;
@@ -15,7 +15,7 @@ public class DeleteCategoria extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        HttpConnection.deleteDados(params[0]);
+        HttpConnectionCategoria.deleteDados(params[0]);
         Log.i("testeDelete", "Será que foi excluido?");
         return null;
     }

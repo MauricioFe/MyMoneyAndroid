@@ -19,7 +19,7 @@ import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Categoria;
 import mauriciofe.github.mymoney.models.Usuario;
 
-public class HttpConnection {
+public class HttpConnectionCategoria {
     public static String getDados(String uri, String token) {
         BufferedReader reader = null;
         try {
@@ -59,41 +59,6 @@ public class HttpConnection {
         Categoria categoria = new Categoria();
         categoria.setDescricao("Bacon");
         String urlParameters = ParseCategoria.converterParaJSON(categoria);
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            URL url = new URL(uri);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json; utf-8");
-            conn.setRequestProperty("charset", "utf-8");
-            conn.setDoOutput(true);
-            //gerenciar o tráfego de rede. No sentido de consumir a rede.
-            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-
-            writer.write(urlParameters);
-            writer.flush();
-
-            String line;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-            writer.close();
-            reader.close();
-            Log.i("retornoApi", "PostDados: " + conn.getResponseCode());
-            return stringBuilder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String login(String uri) {
-        Usuario usuario = new Usuario();
-        usuario.setEmail("mauricio.lacerdaml@gmail.com");
-        usuario.setSenha("86257765");
-        String urlParameters = ParseUsuario.login(usuario);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(uri);

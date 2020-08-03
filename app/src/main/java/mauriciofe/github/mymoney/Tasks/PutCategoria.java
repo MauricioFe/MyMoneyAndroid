@@ -3,9 +3,7 @@ package mauriciofe.github.mymoney.Tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import java.net.HttpURLConnection;
-
-import mauriciofe.github.mymoney.http.conexao.HttpConnection;
+import mauriciofe.github.mymoney.http.conexao.HttpConnectionCategoria;
 
 public class PutCategoria extends AsyncTask<String,String,String> {
     Context context;
@@ -16,7 +14,7 @@ public class PutCategoria extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String content = HttpConnection.putDados(params[0]);
+        String content = HttpConnectionCategoria.putDados(params[0]);
         return null;
     }
 
