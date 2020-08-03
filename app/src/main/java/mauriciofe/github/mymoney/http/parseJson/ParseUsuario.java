@@ -1,5 +1,7 @@
 package mauriciofe.github.mymoney.http.parseJson;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,26 @@ public class ParseUsuario {
                 JSONObject jsonObject = new JSONObject(token);
                 _token += jsonObject.getString("token");
                 return _token;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public static Usuario getEmailByToken(String token) {
+        Usuario usuario = new Usuario();
+        String usuarioObj;
+        if (token != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(token);
+                usuarioObj = jsonObject.getString("usuario");
+                JSONObject obj = new JSONObject(usuarioObj);
+                usuario.setEmail(obj.getString("email"));
+                usuario.setNome(obj.getString("nome"));
+                return usuario;
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;

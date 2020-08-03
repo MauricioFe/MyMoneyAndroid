@@ -1,6 +1,8 @@
 package mauriciofe.github.mymoney.models;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario  implements Serializable {
     private int Id;
     private String Nome;
     private String Email;
