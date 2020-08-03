@@ -1,9 +1,9 @@
 package mauriciofe.github.mymoney.ui.activities.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.http.conexao.HttpConnectionUsuario;
 import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
-import mauriciofe.github.mymoney.util.OnlineUtil;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnEntrar;
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtSenha;
     TextView txtCadastrese;
     String token = null;
-    OnlineUtil online = new OnlineUtil(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +31,19 @@ public class LoginActivity extends AppCompatActivity {
 
         inicializaElementos();
     }
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        return info != null && info.isConnectedOrConnecting();
+    }
     private void enviarLogin(String uri) {
-        if (online.isOnline()) {
+        if (isOnline()) {
             Login task = new Login(this);
             task.execute(uri);
             token = task.enviaToken();
         }
     }
+
     private void inicializaElementos() {
         btnEntrar = findViewById(R.id.login_btn_entrar);
         edtEmail = findViewById(R.id.login_editText_email);
