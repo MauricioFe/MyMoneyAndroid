@@ -1,11 +1,10 @@
-package mauriciofe.github.mymoney;
+package mauriciofe.github.mymoney.ui.activities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +21,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.Tasks.DeleteCategoria;
 import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
 import mauriciofe.github.mymoney.Tasks.PostCategoria;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //inserirDados("https://192.168.0.14:44325/api/categorias/");
         //editarDados("https://192.168.0.14:44325/api/categorias/22");
         // excluirDados("https://192.168.0.14:44325/api/categorias/22");
-        enviarLogin("https://192.168.0.14:44325/api/usuarios/login");
+        //enviarLogin("https://192.168.0.14:44325/api/usuarios/login");
 
     }
 
