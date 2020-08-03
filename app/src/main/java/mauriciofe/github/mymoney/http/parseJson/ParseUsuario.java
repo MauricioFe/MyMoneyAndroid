@@ -40,4 +40,18 @@ public class ParseUsuario {
             return null;
         }
     }
+
+    public static String converterParaJSON(Usuario usuario) {
+        JSONStringer js = new JSONStringer();
+        try {
+            js.object();
+            js.key("nome").value(usuario.getNome());
+            js.key("email").value(usuario.getEmail());
+            js.key("senha").value(usuario.getSenha());
+            js.endObject();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return js.toString();
+    }
 }

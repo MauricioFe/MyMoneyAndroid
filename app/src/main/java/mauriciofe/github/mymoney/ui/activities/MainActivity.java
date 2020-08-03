@@ -8,23 +8,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.X509TrustManager;
-
 import mauriciofe.github.mymoney.R;
-import mauriciofe.github.mymoney.Tasks.DeleteCategoria;
-import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
-import mauriciofe.github.mymoney.Tasks.PostCategoria;
-import mauriciofe.github.mymoney.Tasks.PutCategoria;
+import mauriciofe.github.mymoney.tasks.categoria.DeleteCategoria;
+import mauriciofe.github.mymoney.tasks.categoria.GetDadosCategoria;
+import mauriciofe.github.mymoney.tasks.categoria.PostCategoria;
+import mauriciofe.github.mymoney.tasks.categoria.PutCategoria;
 import mauriciofe.github.mymoney.models.Categoria;
 
 public class MainActivity extends AppCompatActivity {

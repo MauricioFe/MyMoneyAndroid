@@ -1,4 +1,4 @@
-package mauriciofe.github.mymoney.Tasks;
+package mauriciofe.github.mymoney.tasks.categoria;
 
 import android.content.Context;
 import android.os.AsyncTask;
