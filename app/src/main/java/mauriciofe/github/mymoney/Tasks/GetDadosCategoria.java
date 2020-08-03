@@ -21,7 +21,7 @@ public class GetDadosCategoria extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String content = HttpConnection.getDados(params[0]);
+        String content = HttpConnection.getDados(params[0], params[1]);
         return content;
     }
 

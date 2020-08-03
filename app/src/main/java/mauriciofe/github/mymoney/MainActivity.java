@@ -1,12 +1,14 @@
 package mauriciofe.github.mymoney;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -24,12 +26,14 @@ import mauriciofe.github.mymoney.Tasks.DeleteCategoria;
 import mauriciofe.github.mymoney.Tasks.GetDadosCategoria;
 import mauriciofe.github.mymoney.Tasks.PostCategoria;
 import mauriciofe.github.mymoney.Tasks.PutCategoria;
-import mauriciofe.github.mymoney.http.conexao.RequestHttp;
+import mauriciofe.github.mymoney.http.conexao.HttpConnection;
+import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Categoria;
 
 public class MainActivity extends AppCompatActivity {
 
     List<Categoria> categoriaList;
+    static String token = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,36 +41,72 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         categoriaList = new ArrayList<>();
         trustEveryone();
-        //buscaDados("https://192.168.0.10:44387/api/Categoria");
-        //inserirDados("https://192.168.18.23:44387/api/Categoria");
-        //editarDados("https://192.168.0.10:44387/api/Categoria/39");
-        excluirDados("https://192.168.18.23:44387/api/Categoria/22");
+        //inserirDados("https://192.168.0.14:44325/api/categorias/");
+        //editarDados("https://192.168.0.14:44325/api/categorias/22");
+        // excluirDados("https://192.168.0.14:44325/api/categorias/22");
+        enviarLogin("https://192.168.0.14:44325/api/usuarios/login");
 
     }
 
+    public class Login extends AsyncTask<String, String, String> {
+        Context context;
+        private String token;
+
+        public Login(Context context) {
+            this.context = context;
+        }
+
+        public String enviaToken() {
+            if (token != null)
+                return token;
+            else
+                return null;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String conteudo = HttpConnection.login(params[0]);
+            return conteudo;
+        }
+
+        @Override
+        protected void onPostExecute(String conteudo) {
+            token = ParseUsuario.parseToken(conteudo);
+            buscaDados("https://192.168.0.14:44325/api/categorias/", token);
+        }
+    }
+
+    private void enviarLogin(String uri) {
+        if (isOnline()) {
+            Login task = new Login(this);
+            task.execute(uri);
+            token = task.enviaToken();
+        }
+    }
+
     private void excluirDados(String uri) {
-        if (isOnline()){
+        if (isOnline()) {
             DeleteCategoria task = new DeleteCategoria(this);
             task.execute(uri);
         }
     }
 
-    private void editarDados(String uri){
+    private void editarDados(String uri) {
         if (isOnline()) {
             PutCategoria task = new PutCategoria(this);
             task.execute(uri);
-        }
-        else{
+        } else {
             new AlertDialog.Builder(this).setTitle("Erro de conexão")
                     .setMessage("Erro ao conectar a internet. Verifique sua conexão")
                     .setNeutralButton("OK", null).show();
         }
     }
+
     private void inserirDados(String url) {
-        if (isOnline()){
+        if (isOnline()) {
             PostCategoria task = new PostCategoria(this);
             task.execute(url);
-        }else{
+        } else {
             new AlertDialog.Builder(this).setTitle("Erro de conexão")
                     .setMessage("Erro ao conectar a internet. Verifique sua conexão")
                     .setNeutralButton("OK", null).show();
@@ -79,17 +119,16 @@ public class MainActivity extends AppCompatActivity {
         return info != null && info.isConnectedOrConnecting();
     }
 
-    private void buscaDados(String url) {
+    private void buscaDados(String url, String token) {
         if (isOnline()) {
-            GetDadosCategoria task = new GetDadosCategoria(this,categoriaList);
-            task.execute(url);
-        }else{
+            GetDadosCategoria task = new GetDadosCategoria(this, categoriaList);
+            task.execute(url, token);
+        } else {
             new AlertDialog.Builder(this).setTitle("Erro de conexão")
                     .setMessage("Erro ao conectar a internet. verifique sua conexão")
                     .setNeutralButton("OK", null).show();
         }
     }
-
 
 
     /*Código para fazer conexão com urls e ssls não seguros*/

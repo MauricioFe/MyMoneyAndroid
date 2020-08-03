@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import mauriciofe.github.mymoney.http.conexao.HttpConnection;
+import mauriciofe.github.mymoney.http.parseJson.ParseCategoria;
+import mauriciofe.github.mymoney.models.Categoria;
 
 public class PostCategoria extends AsyncTask<String, String, String> {
     Context context;
@@ -14,6 +16,7 @@ public class PostCategoria extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
+
        String teste = HttpConnection.postDados(params[0]);
         Log.i("TAG", "doInBackground: Deu certo? deu sim hahahahahah"+ teste);
         return null;
