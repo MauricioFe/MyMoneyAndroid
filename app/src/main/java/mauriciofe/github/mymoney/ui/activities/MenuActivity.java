@@ -1,14 +1,19 @@
 package mauriciofe.github.mymoney.ui.activities;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.HeaderViewListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,14 +26,16 @@ import com.google.android.material.snackbar.Snackbar;
 
 import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.models.Usuario;
+import mauriciofe.github.mymoney.ui.activities.login.LoginActivity;
 
-import static mauriciofe.github.mymoney.R.drawable.ic_menu_send;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity  {
 
     private AppBarConfiguration mAppBarConfiguration;
     TextView txtNome;
     TextView txtEmail;
+    DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +46,11 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Abrir um dialog com os dados a serem cadastrados", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
@@ -60,7 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         Intent extras = getIntent();
         txtNome = headerView.findViewById(R.id.nav_header_txtNome);
         txtEmail = headerView.findViewById(R.id.nav_header_txtEmail);
-        if (extras.hasExtra("usuario")){
+        if (extras.hasExtra("usuario")) {
             Usuario usuario = (Usuario) extras.getSerializableExtra("usuario");
             if (usuario != null) {
                 txtNome.setText(usuario.getNome());
@@ -68,6 +75,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,9 +85,20 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout){
+            Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

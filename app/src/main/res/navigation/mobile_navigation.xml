@@ -22,4 +22,5 @@
         android:name="mauriciofe.github.mymoney.ui.activities.ui.slideshow.SlideshowFragment"
         android:label="@string/relatorios"
         tools:layout="@layout/fragment_slideshow" />
+
 </navigation>

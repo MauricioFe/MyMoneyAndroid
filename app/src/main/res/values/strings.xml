@@ -29,4 +29,5 @@
     <string name="movimentacao">Movimentações</string>
     <string name="simulacao">Simulações</string>
     <string name="relatorios">Relatórios</string>
+    <string name="sair">sair</string>
 </resources>
