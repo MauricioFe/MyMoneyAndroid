@@ -14,8 +14,7 @@ public class GetDadosCategoria extends AsyncTask<String, String, String> {
 
     private List<Categoria> categoriaList;
     private Context context;
-    public GetDadosCategoria(Context context, List<Categoria> categoriaList) {
-        this.categoriaList = categoriaList;
+    public GetDadosCategoria(Context context) {
         this.context = context;
     }
 
@@ -29,9 +28,7 @@ public class GetDadosCategoria extends AsyncTask<String, String, String> {
     protected void onPostExecute(String conteudo) {
          categoriaList = ParseCategoria.getCategoriasJson(conteudo);
         if (categoriaList != null) {
-            for (Categoria item : categoriaList) {
-                Log.i("Return API", "Id da categoria " + item.getId() + "\n" + "Descrição " + item.getDescricao() + "\n");
-            }
+
         }
     }
 }
