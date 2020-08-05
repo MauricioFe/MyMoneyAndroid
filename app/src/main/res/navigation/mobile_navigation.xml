@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_movimentacao">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="mauriciofe.github.mymoney.ui.activities.ui.home.HomeFragment"
+        android:id="@+id/nav_movimentacao"
+        android:name="mauriciofe.github.mymoney.ui.activities.fragments.movimentacoes.MovimentacaoFragment"
         android:label="@string/movimentacao"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_movimentacao" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="mauriciofe.github.mymoney.ui.activities.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_simulacao"
+        android:name="mauriciofe.github.mymoney.ui.activities.fragments.simulacao.SimulacaoFragment"
         android:label="@string/simulacao"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_simulacao" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="mauriciofe.github.mymoney.ui.activities.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_relatorios"
+        android:name="mauriciofe.github.mymoney.ui.activities.fragments.relatorios.RelatoriosFragment"
         android:label="@string/relatorios"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_relatorios" />
 
 </navigation>
