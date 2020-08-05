@@ -21,7 +21,7 @@ import mauriciofe.github.mymoney.tasks.categoria.PostCategoria;
 import mauriciofe.github.mymoney.tasks.categoria.PutCategoria;
 import mauriciofe.github.mymoney.models.Categoria;
 
-public class MainActivity extends AppCompatActivity {
+public class CadastrarMovimentacaoActivity extends AppCompatActivity {
 
     List<Categoria> categoriaList;
     static String token = null;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cadastrar_movimentacao);
         categoriaList = new ArrayList<>();
 
         Intent extras = getIntent();

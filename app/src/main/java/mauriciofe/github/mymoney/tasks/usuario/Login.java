@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import mauriciofe.github.mymoney.http.conexao.HttpConnectionUsuario;
 import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Usuario;
-import mauriciofe.github.mymoney.ui.activities.MainActivity;
 import mauriciofe.github.mymoney.ui.activities.MenuActivity;
 
 public class Login extends AsyncTask<String, String, String> {

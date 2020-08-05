@@ -1,5 +1,6 @@
 package mauriciofe.github.mymoney.ui.activities.login;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -35,13 +36,13 @@ public class ResgisterActivity extends AppCompatActivity {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(edtNome.getText().length() == 0 &&edtEmail.getText().length() == 0 && edtSenha.getText().length() == 0)) {
+                if (!(edtNome.getText().length() == 0 && edtEmail.getText().length() == 0 && edtSenha.getText().length() == 0)) {
                     usuario = new Usuario();
                     usuario.setNome(edtNome.getText().toString());
                     usuario.setEmail(edtEmail.getText().toString());
                     usuario.setSenha(edtSenha.getText().toString());
                     cadastrarUsuario("https://192.168.0.14:44325/api/usuarios/");
-                }else{
+                } else {
                     Toast.makeText(ResgisterActivity.this, "Preecha todos os campos", Toast.LENGTH_LONG).show();
                 }
             }
@@ -49,9 +50,13 @@ public class ResgisterActivity extends AppCompatActivity {
     }
 
     private void cadastrarUsuario(String uri) {
-        if(isOnline()){
+        if (isOnline()) {
             PostUsuario task = new PostUsuario(this, usuario);
             task.execute(uri);
+        } else {
+            new AlertDialog.Builder(this).setTitle("Erro de conexão")
+                    .setMessage("Erro ao conectar a internet. verifique sua conexão")
+                    .setNeutralButton("OK", null).show();
         }
     }
 

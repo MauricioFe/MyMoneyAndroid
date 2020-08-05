@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import mauriciofe.github.mymoney.R;
@@ -62,6 +63,10 @@ public class LoginActivity extends AppCompatActivity {
         if (isOnline()) {
             Login task = new Login(this, usuario);
             task.execute(uri);
+        }else {
+            new AlertDialog.Builder(this).setTitle("Erro de conexão")
+                    .setMessage("Erro ao conectar a internet. verifique sua conexão")
+                    .setNeutralButton("OK", null).show();
         }
     }
 
