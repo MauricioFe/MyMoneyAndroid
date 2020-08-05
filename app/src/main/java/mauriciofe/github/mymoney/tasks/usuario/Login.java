@@ -29,7 +29,7 @@ public class Login extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String conteudo) {
         token = ParseUsuario.parseToken(conteudo);
-        usuario = ParseUsuario.getEmailByToken(conteudo);
+        usuario = ParseUsuario.getUsuarioLogado(conteudo);
         if (token != null){
             Intent intent = new Intent(context, MenuActivity.class);
             intent.putExtra("token", token);

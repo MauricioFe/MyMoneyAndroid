@@ -27,6 +27,8 @@ import mauriciofe.github.mymoney.ui.activities.login.LoginActivity;
 
 public class MenuActivity extends AppCompatActivity  {
 
+    Usuario usuario;
+    String token;
     private AppBarConfiguration mAppBarConfiguration;
     TextView txtNome;
     TextView txtEmail;
@@ -42,8 +44,10 @@ public class MenuActivity extends AppCompatActivity  {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Abrir um dialog com os dados a serem cadastrados", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MenuActivity.this, CadastrarMovimentacaoActivity.class);
+                intent.putExtra("usuario", usuario);
+                intent.putExtra("token", token);
+                startActivity(intent);
             }
         });
         drawer = findViewById(R.id.drawer_layout);
@@ -63,8 +67,9 @@ public class MenuActivity extends AppCompatActivity  {
         Intent extras = getIntent();
         txtNome = headerView.findViewById(R.id.nav_header_txtNome);
         txtEmail = headerView.findViewById(R.id.nav_header_txtEmail);
-        if (extras.hasExtra("usuario")) {
-            Usuario usuario = (Usuario) extras.getSerializableExtra("usuario");
+        if (extras.hasExtra("usuario") && extras.hasExtra("token")) {
+            usuario = (Usuario) extras.getSerializableExtra("usuario");
+            token = extras.getStringExtra("token");
             if (usuario != null) {
                 txtNome.setText(usuario.getNome());
                 txtEmail.setText(usuario.getEmail());

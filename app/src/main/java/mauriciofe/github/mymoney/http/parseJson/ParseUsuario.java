@@ -43,7 +43,7 @@ public class ParseUsuario {
         }
     }
 
-    public static Usuario getEmailByToken(String token) {
+    public static Usuario getUsuarioLogado(String token) {
         Usuario usuario = new Usuario();
         String usuarioObj;
         if (token != null) {
@@ -51,6 +51,7 @@ public class ParseUsuario {
                 JSONObject jsonObject = new JSONObject(token);
                 usuarioObj = jsonObject.getString("usuario");
                 JSONObject obj = new JSONObject(usuarioObj);
+                usuario.setId(obj.getInt("id"));
                 usuario.setEmail(obj.getString("email"));
                 usuario.setNome(obj.getString("nome"));
                 return usuario;
