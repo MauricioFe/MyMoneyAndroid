@@ -8,6 +8,7 @@ import mauriciofe.github.mymoney.http.conexao.HttpConnectionUsuario;
 import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Usuario;
 import mauriciofe.github.mymoney.ui.activities.MainActivity;
+import mauriciofe.github.mymoney.ui.activities.MenuActivity;
 
 public class Login extends AsyncTask<String, String, String> {
     Context context;
@@ -31,7 +32,7 @@ public class Login extends AsyncTask<String, String, String> {
         token = ParseUsuario.parseToken(conteudo);
         usuario = ParseUsuario.getEmailByToken(conteudo);
         if (token != null){
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(context, MenuActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("usuario", usuario);
             context.startActivity(intent);
