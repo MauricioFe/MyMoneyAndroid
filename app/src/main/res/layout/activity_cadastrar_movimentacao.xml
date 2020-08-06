@@ -75,6 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="@+id/cadastrar_movimentacao_edtObservacoes"
         app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_edtObservacoes"
         app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_edtObservacoes" />
