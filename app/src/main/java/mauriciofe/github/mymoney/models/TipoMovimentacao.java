@@ -1,6 +1,6 @@
 package mauriciofe.github.mymoney.models;
 
-public class Categoria {
+public class TipoMovimentacao {
     private int id;
     private String descricao;
 
