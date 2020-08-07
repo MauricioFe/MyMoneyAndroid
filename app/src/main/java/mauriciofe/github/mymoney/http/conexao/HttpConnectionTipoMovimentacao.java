@@ -21,7 +21,7 @@ public class HttpConnectionTipoMovimentacao {
 
             StringBuilder stringBuilder = new StringBuilder();
             String line = "";
-            while ((reader.readLine())!= null){
+            while ((line = reader.readLine())!= null){
                 stringBuilder.append(line);
             }
             Log.i("response server", conn.getResponseMessage());

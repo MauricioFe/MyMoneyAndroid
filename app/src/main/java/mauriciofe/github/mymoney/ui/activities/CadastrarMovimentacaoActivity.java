@@ -17,6 +17,7 @@ import mauriciofe.github.mymoney.http.ssl.ConferirSsl;
 import mauriciofe.github.mymoney.models.Categoria;
 import mauriciofe.github.mymoney.models.Usuario;
 import mauriciofe.github.mymoney.tasks.categoria.GetDadosCategoria;
+import mauriciofe.github.mymoney.tasks.tipoMovimentacao.GetTipoMovimentacao;
 
 public class CadastrarMovimentacaoActivity extends AppCompatActivity {
     Usuario usuario;
@@ -37,7 +38,7 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         recebeDadosDaIntent();
         ConferirSsl.trustEveryone();
         buscarCateroria("https://192.168.0.14:44325/api/categorias");
-
+        buscarTipoMovimentacao("https://192.168.0.14:44325/api/tipoMovimentacao");
         spnCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -49,6 +50,11 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void buscarTipoMovimentacao(String uri) {
+        GetTipoMovimentacao tasks = new GetTipoMovimentacao(this, spnTipoMovimentacao);
+        tasks.execute(uri, token);
     }
 
     private void buscarCateroria(String uri) {
