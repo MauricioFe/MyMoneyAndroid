@@ -33,12 +33,12 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria> {
 
     private View initView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_item_categoria, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_item, parent, false);
         }
         TextView textView = convertView.findViewById(R.id.spinner_list_descricao);
 
         Categoria categoria = getItem(position);
-        textView.setText(categoria.getId()+" "+categoria.getDescricao());
+        textView.setText(categoria.getDescricao());
 
         return convertView;
     }

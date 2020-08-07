@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mauriciofe.github.mymoney.R;
@@ -78,5 +80,11 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         spnCategoria = findViewById(R.id.cadastrar_movimentacao_spnCategoria);
         spnTipoMovimentacao = findViewById(R.id.cadastrar_movimentacao_spnTipoMovimentacao);
         spnRepeticao = findViewById(R.id.cadastrar_movimentacao_spnRepeticao);
+        List<String> repeticaoList = new ArrayList<>();
+        repeticaoList.add("Único");
+        repeticaoList.add("Parcelado");
+        repeticaoList.add("Fixo");
+        ArrayAdapter<String> adapter =new  ArrayAdapter<>(CadastrarMovimentacaoActivity.this, android.R.layout.simple_spinner_item, repeticaoList);
+        spnRepeticao.setAdapter(adapter);
     }
 }

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mauriciofe.github.mymoney.R;
@@ -34,11 +33,13 @@ public class TipoMovimentacaoAdapter extends ArrayAdapter<TipoMovimentacao> {
 
     private View initView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_item_categoria, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_item, parent, false);
         }
         TextView txtTipo = convertView.findViewById(R.id.spinner_list_descricao);
         TipoMovimentacao tipoMovimentacao = getItem(position);
-        txtTipo.setText(tipoMovimentacao.getId()+" "+tipoMovimentacao.getDescricao());
+        if (tipoMovimentacao != null) {
+            txtTipo.setText(tipoMovimentacao.getDescricao());
+        }
         return convertView;
     }
 }

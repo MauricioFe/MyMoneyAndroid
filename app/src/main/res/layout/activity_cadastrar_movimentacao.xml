@@ -7,6 +7,24 @@
     tools:context=".ui.activities.CadastrarMovimentacaoActivity">
 
     <TextView
+        android:id="@+id/cadastrar_movimentacao_lblRepeticao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repetição"
+        app:layout_constraintBottom_toTopOf="@+id/cadastrar_movimentacao_spnRepeticao"
+        app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_spnRepeticao"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_spnTipoMovimentacao" />
+
+    <TextView
+        android:id="@+id/cadastrar_movimentacao_lblTipoMovimentacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo de Movimentação"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_spnCategoria"
+        app:layout_constraintBottom_toTopOf="@+id/cadastrar_movimentacao_spnTipoMovimentacao"
+        app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_spnTipoMovimentacao" />
+
+    <TextView
         android:id="@+id/cadastrar_movimentacao_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,28 +92,66 @@
         android:id="@+id/cadastrar_movimentacao_spnCategoria"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:spinnerMode="dialog"
+        android:layout_marginTop="24dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="@+id/cadastrar_movimentacao_edtObservacoes"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_edtObservacoes"
         app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_edtObservacoes" />
-
-    <Spinner
-        android:id="@+id/cadastrar_movimentacao_spnTipoMovimentacao"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/cadastrar_movimentacao_spnCategoria"
-        app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_spnCategoria"
-        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_spnCategoria" />
 
     <Spinner
         android:id="@+id/cadastrar_movimentacao_spnRepeticao"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/cadastrar_movimentacao_spnTipoMovimentacao"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_lblRepeticao"
         app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_spnTipoMovimentacao"
-        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_spnTipoMovimentacao" />
+        tools:layout_editor_absoluteY="353dp" />
+
+    <Spinner
+        android:id="@+id/cadastrar_movimentacao_spnTipoMovimentacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/cadastrar_movimentacao_spnCategoria"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_lblTipoMovimentacao"
+        app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_spnCategoria"
+        tools:layout_editor_absoluteY="302dp" />
+
+    <TextView
+        android:id="@+id/cadastrar_movimentacao_lblCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categorias"
+        app:layout_constraintBottom_toTopOf="@+id/cadastrar_movimentacao_spnCategoria"
+        app:layout_constraintStart_toStartOf="@+id/cadastrar_movimentacao_spnCategoria"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_edtObservacoes" />
+
+    <Button
+        android:id="@+id/cadastrar_movimentacaop_btnCancelar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cadastrar_movimentacao_btnSalvar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_spnRepeticao"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <Button
+        android:id="@+id/cadastrar_movimentacao_btnSalvar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Salvar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cadastrar_movimentacaop_btnCancelar"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_movimentacao_spnRepeticao"
+        app:layout_constraintVertical_bias="0.50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
