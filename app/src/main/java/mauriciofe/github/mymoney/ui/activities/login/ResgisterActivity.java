@@ -41,7 +41,7 @@ public class ResgisterActivity extends AppCompatActivity {
                     usuario.setNome(edtNome.getText().toString());
                     usuario.setEmail(edtEmail.getText().toString());
                     usuario.setSenha(edtSenha.getText().toString());
-                    cadastrarUsuario("https://192.168.0.14:44325/api/usuarios/");
+                    cadastrarUsuario("https://192.168.0.14:44303/usuarios/");
                 } else {
                     Toast.makeText(ResgisterActivity.this, "Preecha todos os campos", Toast.LENGTH_LONG).show();
                 }

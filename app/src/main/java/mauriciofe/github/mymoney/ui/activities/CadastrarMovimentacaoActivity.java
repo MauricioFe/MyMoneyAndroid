@@ -2,9 +2,11 @@ package mauriciofe.github.mymoney.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,9 +18,10 @@ import java.util.List;
 
 import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.http.ssl.ConferirSsl;
-import mauriciofe.github.mymoney.models.Categoria;
+import mauriciofe.github.mymoney.models.Repeticao;
 import mauriciofe.github.mymoney.models.Usuario;
 import mauriciofe.github.mymoney.tasks.categoria.GetDadosCategoria;
+import mauriciofe.github.mymoney.tasks.repeticao.PostRepeticao;
 import mauriciofe.github.mymoney.tasks.tipoMovimentacao.GetTipoMovimentacao;
 
 public class CadastrarMovimentacaoActivity extends AppCompatActivity {
@@ -31,6 +34,12 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
     Spinner spnCategoria;
     Spinner spnTipoMovimentacao;
     Spinner spnRepeticao;
+    Button btnCancelar;
+    Button btnSalvar;
+    int idCategoria;
+    int idTipoMovimentacao;
+    int idRepeticao;
+    Repeticao repeticao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +48,12 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         preencheComponentes();
         recebeDadosDaIntent();
         ConferirSsl.trustEveryone();
-        buscarCateroria("https://192.168.0.14:44325/api/categorias");
-        buscarTipoMovimentacao("https://192.168.0.14:44325/api/tipoMovimentacao");
+        buscarCateroria("https://192.168.0.14:44303/api/categorias");
+        buscarTipoMovimentacao("https://192.168.0.14:44303/api/tipoMovimentacao");
         spnCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                idCategoria = position + 1;
             }
 
             @Override
@@ -52,6 +61,54 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
 
             }
         });
+        spnTipoMovimentacao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                idTipoMovimentacao = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spnRepeticao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (spnRepeticao.getSelectedItem() != null) ;
+                {
+                    String repet = spnRepeticao.getSelectedItem().toString();
+                    repeticao = new Repeticao();
+                    repeticao.setDescricao(repet);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        cadastrarRepetição();
+
+    }
+
+    private void cadastrarRepetição() {
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insereRepeticao("https://192.168.0.14:44303/api/repeticao");
+                insereMovimentacao("https://192.168.0.14:44303/api/movimentacoes");
+            }
+
+
+        });
+    }
+    private void insereMovimentacao(String uri) {
+    }
+    private void insereRepeticao(String uri) {
+        PostRepeticao task = new PostRepeticao(this, repeticao);
+        task.execute(uri, token);
     }
 
     private void buscarTipoMovimentacao(String uri) {
@@ -80,11 +137,13 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         spnCategoria = findViewById(R.id.cadastrar_movimentacao_spnCategoria);
         spnTipoMovimentacao = findViewById(R.id.cadastrar_movimentacao_spnTipoMovimentacao);
         spnRepeticao = findViewById(R.id.cadastrar_movimentacao_spnRepeticao);
+        btnSalvar = findViewById(R.id.cadastrar_movimentacao_btnSalvar);
+        btnCancelar = findViewById(R.id.cadastrar_movimentacao_btnCancelar);
         List<String> repeticaoList = new ArrayList<>();
         repeticaoList.add("Único");
         repeticaoList.add("Parcelado");
         repeticaoList.add("Fixo");
-        ArrayAdapter<String> adapter =new  ArrayAdapter<>(CadastrarMovimentacaoActivity.this, android.R.layout.simple_spinner_item, repeticaoList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CadastrarMovimentacaoActivity.this, android.R.layout.simple_spinner_item, repeticaoList);
         spnRepeticao.setAdapter(adapter);
     }
 }
