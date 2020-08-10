@@ -18,9 +18,11 @@ import java.util.List;
 
 import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.http.ssl.ConferirSsl;
+import mauriciofe.github.mymoney.models.Movimentacoes;
 import mauriciofe.github.mymoney.models.Repeticao;
 import mauriciofe.github.mymoney.models.Usuario;
 import mauriciofe.github.mymoney.tasks.categoria.GetDadosCategoria;
+import mauriciofe.github.mymoney.tasks.movimentacao.PostMovimentacao;
 import mauriciofe.github.mymoney.tasks.repeticao.PostRepeticao;
 import mauriciofe.github.mymoney.tasks.tipoMovimentacao.GetTipoMovimentacao;
 
@@ -40,6 +42,7 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
     int idTipoMovimentacao;
     int idRepeticao;
     Repeticao repeticao;
+    Movimentacoes movimentacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +107,13 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
 
         });
     }
+
     private void insereMovimentacao(String uri) {
+        movimentacao = new Movimentacoes();
+        PostMovimentacao task = new PostMovimentacao(this, movimentacao);
+        task.execute(uri, token);
     }
+
     private void insereRepeticao(String uri) {
         PostRepeticao task = new PostRepeticao(this, repeticao);
         task.execute(uri, token);
