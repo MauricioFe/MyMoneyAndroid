@@ -1,8 +1,11 @@
 package mauriciofe.github.mymoney.tasks.movimentacao;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 
+import mauriciofe.github.mymoney.http.conexao.HttpConnectionMovimentacoes;
+import mauriciofe.github.mymoney.http.parseJson.ParseMovimentacao;
 import mauriciofe.github.mymoney.models.Movimentacoes;
 
 public class PostMovimentacao extends AsyncTask<String, String, String> {
@@ -15,7 +18,14 @@ public class PostMovimentacao extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        return null;
+    protected String doInBackground(String... params) {
+        String content = HttpConnectionMovimentacoes.postDados(params[0], params[1], movimentacoes);
+        return content;
+    }
+
+    @Override
+    protected void onPostExecute(String content) {
+        Movimentacoes movimentacoes = ParseMovimentacao.parseJsonForObject(content);
+
     }
 }

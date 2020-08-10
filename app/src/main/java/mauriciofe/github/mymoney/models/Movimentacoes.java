@@ -6,7 +6,7 @@ public class Movimentacoes {
     private int id;
     private String descricao;
     private double valor;
-    private Date data;
+    private String data;
     private String observacoes;
     private int categoria_id;
     private int tipoMovimentacao_id;
@@ -37,11 +37,11 @@ public class Movimentacoes {
         this.valor = valor;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
