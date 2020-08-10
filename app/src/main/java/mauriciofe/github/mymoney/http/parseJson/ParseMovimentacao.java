@@ -13,7 +13,7 @@ public class ParseMovimentacao {
             js.object();
             js.key("descricao").value(movimentacoes.getDescricao());
             js.key("valor").value(movimentacoes.getValor());
-            js.key("date").value(movimentacoes.getData());
+            js.key("data").value(movimentacoes.getData());
             js.key("observacoes").value(movimentacoes.getObservacoes());
             js.key("categoria_id").value(movimentacoes.getCategoria_id());
             js.key("tipoMovimentacao_id").value(movimentacoes.getTipoMovimentacao_id());
@@ -33,15 +33,16 @@ public class ParseMovimentacao {
             movimentacoes.setId(jsonObject.getInt("id"));
             movimentacoes.setDescricao(jsonObject.getString("descricao"));
             movimentacoes.setValor(jsonObject.getDouble("valor"));
-            movimentacoes.setData(jsonObject.getString("date"));
+            movimentacoes.setData(jsonObject.getString("data"));
             movimentacoes.setObservacoes(jsonObject.getString("observacoes"));
             movimentacoes.setCategoria_id(jsonObject.getInt("categoria_id"));
             movimentacoes.setTipoMovimentacao_id(jsonObject.getInt("tipoMovimentacao_id"));
             movimentacoes.setRepeticao_id(jsonObject.getInt("repeticao_id"));
             movimentacoes.setUsuario_id(jsonObject.getInt("usuario_id"));
+            return movimentacoes;
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
-        return movimentacoes;
     }
 }

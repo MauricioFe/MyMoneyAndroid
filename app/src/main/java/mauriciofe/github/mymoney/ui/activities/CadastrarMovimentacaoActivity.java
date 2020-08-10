@@ -38,9 +38,6 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
     Spinner spnRepeticao;
     Button btnCancelar;
     Button btnSalvar;
-    int idCategoria;
-    int idTipoMovimentacao;
-    int idRepeticao;
     Repeticao repeticao;
     Movimentacoes movimentacao;
 
@@ -53,10 +50,11 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         ConferirSsl.trustEveryone();
         buscarCateroria("https://192.168.0.14:44303/api/categorias");
         buscarTipoMovimentacao("https://192.168.0.14:44303/api/tipoMovimentacao");
+        movimentacao = new Movimentacoes();
         spnCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idCategoria = position + 1;
+                movimentacao.setCategoria_id(position + 1);
             }
 
             @Override
@@ -67,7 +65,7 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         spnTipoMovimentacao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idTipoMovimentacao = position + 1;
+                movimentacao.setTipoMovimentacao_id(position + 1);
             }
 
             @Override
@@ -103,19 +101,21 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
                 insereRepeticao("https://192.168.0.14:44303/api/repeticao");
                 insereMovimentacao("https://192.168.0.14:44303/api/movimentacoes");
             }
-
-
         });
     }
 
     private void insereMovimentacao(String uri) {
-        movimentacao = new Movimentacoes();
+        movimentacao.setUsuario_id(usuario.getId());
+        movimentacao.setDescricao(edtDescricao.getText().toString());
+        movimentacao.setValor(Double.parseDouble(edtValor.getText().toString()));
+        movimentacao.setData(edtData.getText().toString());
+        movimentacao.setObservacoes(edtObservacoes.getText().toString());
         PostMovimentacao task = new PostMovimentacao(this, movimentacao);
         task.execute(uri, token);
     }
 
     private void insereRepeticao(String uri) {
-        PostRepeticao task = new PostRepeticao(this, repeticao);
+        PostRepeticao task = new PostRepeticao(this, repeticao, movimentacao);
         task.execute(uri, token);
     }
 

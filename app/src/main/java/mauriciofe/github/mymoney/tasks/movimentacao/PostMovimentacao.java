@@ -1,5 +1,7 @@
 package mauriciofe.github.mymoney.tasks.movimentacao;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -25,7 +27,15 @@ public class PostMovimentacao extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String content) {
-        Movimentacoes movimentacoes = ParseMovimentacao.parseJsonForObject(content);
-
+        movimentacoes = ParseMovimentacao.parseJsonForObject(content);
+        if ((movimentacoes != null)) {
+            new AlertDialog.Builder(context).setTitle("Cadastro de Movimentações")
+                    .setMessage("Movimentação cadastrada com sucesso\n" + movimentacoes.getDescricao() + "\n" + movimentacoes.getValor())
+                    .setNeutralButton("OK", null).show();
+        } else {
+            new AlertDialog.Builder(context).setTitle("Cadastro de movimentações")
+                    .setMessage("Erro na requisição tente novamente mais tarde")
+                    .setNeutralButton("OK", null).show();
+        }
     }
 }
