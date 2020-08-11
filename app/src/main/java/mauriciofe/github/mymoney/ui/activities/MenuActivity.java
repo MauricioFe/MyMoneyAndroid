@@ -89,7 +89,7 @@ public class MenuActivity extends AppCompatActivity  {
 
     private void buscarMovimentacoes(String uri) {
         GetMovimentacoes task = new GetMovimentacoes(this, movimentacaoList);
-        task.execute(uri);
+        task.execute(uri, token);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

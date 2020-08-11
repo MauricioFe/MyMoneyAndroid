@@ -52,4 +52,35 @@ public class HttpConnectionMovimentacoes {
             }
         }
     }
+
+    public static String getDados(String uri, String token) {
+        StringBuilder stringBuilder;
+        BufferedReader reader = null;
+        try{
+            URL url = new URL(uri);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(false);
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", token);
+
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null){
+                stringBuilder.append(line);
+            }
+            return stringBuilder.toString();
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            try {
+                assert reader != null;
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

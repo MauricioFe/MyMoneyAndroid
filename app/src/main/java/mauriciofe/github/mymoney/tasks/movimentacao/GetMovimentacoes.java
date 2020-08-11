@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ListView;
 
+import mauriciofe.github.mymoney.http.conexao.HttpConnectionMovimentacoes;
+
 public class GetMovimentacoes extends AsyncTask<String, String, String> {
     Context context;
     ListView movimentacoesList;
@@ -14,7 +16,7 @@ public class GetMovimentacoes extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        return null;
+    protected String doInBackground(String... params) {
+        return HttpConnectionMovimentacoes.getDados(params[0], params[1]);
     }
 }
