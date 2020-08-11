@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,6 +24,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.models.Usuario;
+import mauriciofe.github.mymoney.tasks.movimentacao.GetMovimentacoes;
+import mauriciofe.github.mymoney.ui.activities.fragments.movimentacoes.MovimentacaoFragment;
 import mauriciofe.github.mymoney.ui.activities.login.LoginActivity;
 
 
@@ -33,6 +37,7 @@ public class MenuActivity extends AppCompatActivity  {
     TextView txtNome;
     TextView txtEmail;
     DrawerLayout drawer;
+    ListView movimentacaoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,8 @@ public class MenuActivity extends AppCompatActivity  {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
+
         Intent extras = getIntent();
         txtNome = headerView.findViewById(R.id.nav_header_txtNome);
         txtEmail = headerView.findViewById(R.id.nav_header_txtEmail);
@@ -75,9 +82,15 @@ public class MenuActivity extends AppCompatActivity  {
                 txtEmail.setText(usuario.getEmail());
             }
         }
+        movimentacaoList = findViewById(R.id.fragment_movimentacao_lista_movimentacao);
+        buscarMovimentacoes("https://192.168.0.14:44303/api/movimentacoes");
     }
 
 
+    private void buscarMovimentacoes(String uri) {
+        GetMovimentacoes task = new GetMovimentacoes(this, movimentacaoList);
+        task.execute(uri);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
