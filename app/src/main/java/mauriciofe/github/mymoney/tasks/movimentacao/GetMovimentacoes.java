@@ -9,6 +9,7 @@ import java.util.List;
 import mauriciofe.github.mymoney.http.conexao.HttpConnectionMovimentacoes;
 import mauriciofe.github.mymoney.http.parseJson.ParseMovimentacao;
 import mauriciofe.github.mymoney.models.Movimentacoes;
+import mauriciofe.github.mymoney.ui.adapters.MovimentacoesAdapter;
 
 public class GetMovimentacoes extends AsyncTask<String, String, String> {
     Context context;
@@ -27,5 +28,7 @@ public class GetMovimentacoes extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String content) {
         List<Movimentacoes> movimentacoesList = ParseMovimentacao.parseForList(content);
+        MovimentacoesAdapter adapter = new MovimentacoesAdapter(movimentacoesList, context);
+        movimentacaoList.setAdapter(adapter);
     }
 }

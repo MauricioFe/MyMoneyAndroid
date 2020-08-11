@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -38,6 +39,14 @@ public class MovimentacoesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.movimentacoes_item, parent, false);
+        Movimentacoes movimentacoes = movimentacoesList.get(position);
+        TextView txtDescricao = convertView.findViewById(R.id.movimentacao_item_descricao);
+        TextView txtData = convertView.findViewById(R.id.movimentacao_item_data);
+        TextView txtValor = convertView.findViewById(R.id.movimentacao_item_valor);
+        txtDescricao.setText(movimentacoes.getDescricao());
+        txtData.setText(movimentacoes.getData());
+        String valor = String.valueOf(movimentacoes.getValor());
+        txtValor.setText(valor);
         return convertView;
     }
 }

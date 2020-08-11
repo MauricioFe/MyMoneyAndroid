@@ -69,6 +69,7 @@ public class HttpConnectionMovimentacoes {
             while ((line = reader.readLine()) != null){
                 stringBuilder.append(line);
             }
+            conn.getResponseCode();
             return stringBuilder.toString();
         }catch (IOException e){
             e.printStackTrace();

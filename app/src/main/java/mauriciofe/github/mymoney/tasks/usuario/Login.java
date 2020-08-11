@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import mauriciofe.github.mymoney.http.conexao.HttpConnectionUsuario;
 import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Usuario;
+import mauriciofe.github.mymoney.ui.activities.CadastrarMovimentacaoActivity;
 import mauriciofe.github.mymoney.ui.activities.MenuActivity;
+import mauriciofe.github.mymoney.ui.activities.fragments.movimentacoes.MovimentacaoFragment;
 
 public class Login extends AsyncTask<String, String, String> {
     Context context;
@@ -35,6 +37,8 @@ public class Login extends AsyncTask<String, String, String> {
             intent.putExtra("token", token);
             intent.putExtra("usuario", usuario);
             context.startActivity(intent);
+
+
         }
     }
 }
