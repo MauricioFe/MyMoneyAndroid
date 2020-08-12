@@ -43,12 +43,12 @@ public class ParseUsuario {
         }
     }
 
-    public static Usuario getUsuarioLogado(String token) {
+    public static Usuario getUsuarioLogado(String content) {
         Usuario usuario = new Usuario();
         String usuarioObj;
-        if (token != null) {
+        if (content != null) {
             try {
-                JSONObject jsonObject = new JSONObject(token);
+                JSONObject jsonObject = new JSONObject(content);
                 usuarioObj = jsonObject.getString("usuario");
                 JSONObject obj = new JSONObject(usuarioObj);
                 usuario.setId(obj.getInt("id"));
@@ -68,6 +68,20 @@ public class ParseUsuario {
         JSONStringer js = new JSONStringer();
         try {
             js.object();
+            js.key("nome").value(usuario.getNome());
+            js.key("email").value(usuario.getEmail());
+            js.key("senha").value(usuario.getSenha());
+            js.endObject();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return js.toString();
+    }
+    public static String converterParaJSONcomId(Usuario usuario) {
+        JSONStringer js = new JSONStringer();
+        try {
+            js.object();
+            js.key("id").value(usuario.getId());
             js.key("nome").value(usuario.getNome());
             js.key("email").value(usuario.getEmail());
             js.key("senha").value(usuario.getSenha());
