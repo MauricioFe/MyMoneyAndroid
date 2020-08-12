@@ -28,11 +28,11 @@ public class MovimentacaoFragment extends Fragment {
                 ViewModelProviders.of(this).get(MovimentacaoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_movimentacao, container, false);
         Bundle data = getArguments();
-        if( data != null) {
-            token = data.getString("token");
-        }
-        buscarMovimentacoes("https://192.168.0.14:44303/api/movimentacoes");
-        movimentacaoList = root.findViewById(R.id.fragment_movimentacao_lista_movimentacao);
+//        if( data != null) {
+//            token = data.getString("token");
+//        }
+//        buscarMovimentacoes("https://192.168.0.14:44303/api/movimentacoes");
+//        movimentacaoList = root.findViewById(R.id.fragment_movimentacao_lista_movimentacao);
 
         return root;
     }

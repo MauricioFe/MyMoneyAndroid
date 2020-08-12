@@ -1,7 +1,10 @@
 package mauriciofe.github.mymoney.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mauriciofe.github.mymoney.R;
+import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Usuario;
 import mauriciofe.github.mymoney.tasks.movimentacao.GetMovimentacoes;
 import mauriciofe.github.mymoney.ui.activities.fragments.movimentacoes.MovimentacaoFragment;
@@ -37,7 +41,7 @@ import mauriciofe.github.mymoney.ui.activities.login.LoginActivity;
 public class MenuActivity extends AppCompatActivity  {
 
     Usuario usuario;
-    String token;
+    String token = null;
     private AppBarConfiguration mAppBarConfiguration;
     TextView txtNome;
     TextView txtEmail;
@@ -55,8 +59,6 @@ public class MenuActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, CadastrarMovimentacaoActivity.class);
-                intent.putExtra("usuario", usuario);
-                intent.putExtra("token", token);
                 startActivity(intent);
 
             }
@@ -75,36 +77,21 @@ public class MenuActivity extends AppCompatActivity  {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        SharedPreferences preferences = getSharedPreferences("users-preferences", Context.MODE_PRIVATE);
+        String usuarioJson = preferences.getString("usuario-logado", "");
+        token = preferences.getString("token", "");
 
 
-        Intent extras = getIntent();
         txtNome = headerView.findViewById(R.id.nav_header_txtNome);
         txtEmail = headerView.findViewById(R.id.nav_header_txtEmail);
-        if (extras.hasExtra("usuario") && extras.hasExtra("token")) {
-            usuario = (Usuario) extras.getSerializableExtra("usuario");
-            token = extras.getStringExtra("token");
+        if (token != null && usuarioJson != null) {
+          usuario = ParseUsuario.getUsuarioPreferences(usuarioJson);
             if (usuario != null) {
                 txtNome.setText(usuario.getNome());
                 txtEmail.setText(usuario.getEmail());
             }
         }
-//        Bundle bundle = new Bundle();
-//        bundle.putString(token, "token");
-//        MovimentacaoFragment fragment = new MovimentacaoFragment();
-//        fragment.setArguments(bundle);
-//        FragmentManager manager = getSupportFragmentManager();
-//        manager.beginTransaction().replace(R.id.nav_host_fragment, fragment).commit();
-        Bundle bundle = new Bundle();
-        String myMessage = "Stackoverflow is cool!";
-        bundle.putString("message", myMessage );
-        MovimentacaoFragment fragInfo = new MovimentacaoFragment();
-        fragInfo.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragInfo);
-        transaction.commit();
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

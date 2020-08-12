@@ -1,15 +1,14 @@
 package mauriciofe.github.mymoney.ui.activities;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mauriciofe.github.mymoney.R;
+import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.http.ssl.ConferirSsl;
 import mauriciofe.github.mymoney.models.Movimentacoes;
 import mauriciofe.github.mymoney.models.Repeticao;
@@ -46,7 +46,7 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_movimentacao);
         preencheComponentes();
-        recebeDadosDaIntent();
+        recebeDadosDoSharedPreferences();
         ConferirSsl.trustEveryone();
         buscarCateroria("https://192.168.0.14:44303/api/categorias");
         buscarTipoMovimentacao("https://192.168.0.14:44303/api/tipoMovimentacao");
@@ -129,11 +129,12 @@ public class CadastrarMovimentacaoActivity extends AppCompatActivity {
         task.execute(uri, token);
     }
 
-    private void recebeDadosDaIntent() {
-        Intent intent = getIntent();
-        if (intent.hasExtra("usuario") && intent.hasExtra("token")) {
-            usuario = (Usuario) intent.getSerializableExtra("usuario");
-            token = intent.getStringExtra("token");
+    private void recebeDadosDoSharedPreferences() {
+        SharedPreferences preferences = getSharedPreferences("users-preferences", Context.MODE_PRIVATE);
+        String usuarioJson = preferences.getString("usuario-logado", "");
+        token = preferences.getString("token", "");
+        if (usuarioJson != null && token != null) {
+            usuario = ParseUsuario.getUsuarioPreferences(usuarioJson);
         }
     }
 

@@ -31,7 +31,7 @@ public class Login extends AsyncTask<String, String, String> {
     protected void onPostExecute(String conteudo) {
         token = ParseUsuario.parseToken(conteudo);
         usuario = ParseUsuario.getUsuarioLogado(conteudo);
-        String usuarioJson = ParseUsuario.converterParaJSON(usuario);
+        String usuarioJson = ParseUsuario.converterParaJSONcomId(usuario);
         if (token != null){
             SharedPreferences preferences = context.getSharedPreferences("users-preferences", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();

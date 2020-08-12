@@ -91,4 +91,22 @@ public class ParseUsuario {
         }
         return js.toString();
     }
+    public static Usuario getUsuarioPreferences(String content) {
+        Usuario usuario = new Usuario();
+
+        if (content != null) {
+            try {
+                JSONObject obj = new JSONObject(content);
+                usuario.setId(obj.getInt("id"));
+                usuario.setEmail(obj.getString("email"));
+                usuario.setNome(obj.getString("nome"));
+                return usuario;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 }
