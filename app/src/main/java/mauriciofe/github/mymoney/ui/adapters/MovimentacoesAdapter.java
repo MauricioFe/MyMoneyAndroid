@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import mauriciofe.github.mymoney.R;
@@ -43,10 +44,11 @@ public class MovimentacoesAdapter extends BaseAdapter {
         TextView txtDescricao = convertView.findViewById(R.id.movimentacao_item_descricao);
         TextView txtData = convertView.findViewById(R.id.movimentacao_item_data);
         TextView txtValor = convertView.findViewById(R.id.movimentacao_item_valor);
-        txtDescricao.setText(movimentacoes.getDescricao());
-        txtData.setText(movimentacoes.getData());
-        String valor = String.valueOf(movimentacoes.getValor());
-        txtValor.setText(valor);
+        txtDescricao.setText("Descrição: "+movimentacoes.getDescricao());
+        txtData.setText("Data do lançamento: "+movimentacoes.getData().substring(0, 10));
+        DecimalFormat format = new DecimalFormat("0.00");
+        String valor = String.valueOf(format.format(movimentacoes.getValor()));
+        txtValor.setText("Valor lançado: "+valor);
         return convertView;
     }
 }

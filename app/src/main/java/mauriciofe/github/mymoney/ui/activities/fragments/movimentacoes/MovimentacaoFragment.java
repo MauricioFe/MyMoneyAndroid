@@ -1,5 +1,7 @@
 package mauriciofe.github.mymoney.ui.activities.fragments.movimentacoes;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +29,12 @@ public class MovimentacaoFragment extends Fragment {
         movimentacaoViewModel =
                 ViewModelProviders.of(this).get(MovimentacaoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_movimentacao, container, false);
-        Bundle data = getArguments();
-//        if( data != null) {
-//            token = data.getString("token");
-//        }
-//        buscarMovimentacoes("https://192.168.0.14:44303/api/movimentacoes");
-//        movimentacaoList = root.findViewById(R.id.fragment_movimentacao_lista_movimentacao);
+
+        SharedPreferences preferences = getContext().getSharedPreferences("users-preferences", Context.MODE_PRIVATE);
+        token = preferences.getString("token", "");
+        movimentacaoList = root.findViewById(R.id.fragment_movimentacao_lista_movimentacao);
+        buscarMovimentacoes("https://192.168.0.14:44303/api/movimentacoes");
+
 
         return root;
     }
