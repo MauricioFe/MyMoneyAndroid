@@ -4,20 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,16 +24,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import mauriciofe.github.mymoney.R;
 import mauriciofe.github.mymoney.http.parseJson.ParseUsuario;
 import mauriciofe.github.mymoney.models.Usuario;
-import mauriciofe.github.mymoney.tasks.movimentacao.GetMovimentacoes;
-import mauriciofe.github.mymoney.ui.activities.fragments.movimentacoes.MovimentacaoFragment;
 import mauriciofe.github.mymoney.ui.activities.login.LoginActivity;
 
 
@@ -66,11 +59,20 @@ public class MenuActivity extends AppCompatActivity  {
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-
+navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_sair:
+                return true;
+        }
+        return false;
+    }
+});
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_movimentacao, R.id.nav_simulacao, R.id.nav_relatorios)
+                R.id.nav_movimentacao, R.id.nav_simulacao, R.id.nav_relatorios, R.id.nav_sair)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -116,4 +118,21 @@ public class MenuActivity extends AppCompatActivity  {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onBackPressed() {
+        //retorna o drawer
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+
+            // Independente do fragment que está, retorna pra activity
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            //faz voltar pra activity e limpa o popBackStack
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+        //fecha a aplicação, aqui você pode fazer voltar para alguma activity
+        else {
+            super.onBackPressed();
+        }
+        super.onBackPressed();
+    }
 }

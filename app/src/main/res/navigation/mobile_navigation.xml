@@ -22,5 +22,10 @@
         android:name="mauriciofe.github.mymoney.ui.activities.fragments.relatorios.RelatoriosFragment"
         android:label="@string/relatorios"
         tools:layout="@layout/fragment_relatorios" />
+    <activity
+        android:id="@+id/nav_sair"
+        android:name="mauriciofe.github.mymoney.ui.activities.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 </navigation>

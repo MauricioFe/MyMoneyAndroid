@@ -16,5 +16,9 @@
             android:id="@+id/nav_relatorios"
             android:icon="@drawable/ic_baseline_assignment_24"
             android:title="@string/relatorios" />
+        <item
+            android:id="@+id/nav_sair"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="Sair" />
     </group>
 </menu>

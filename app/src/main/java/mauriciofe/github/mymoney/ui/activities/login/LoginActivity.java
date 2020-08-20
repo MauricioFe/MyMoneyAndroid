@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         if (isOnline()) {
             Login task = new Login(this, usuario);
             task.execute(uri);
+            this.finish();
         }else {
             new AlertDialog.Builder(this).setTitle("Erro de conexão")
                     .setMessage("Erro ao conectar a internet. verifique sua conexão")

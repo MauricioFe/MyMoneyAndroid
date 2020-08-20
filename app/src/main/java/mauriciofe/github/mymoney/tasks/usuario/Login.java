@@ -40,8 +40,6 @@ public class Login extends AsyncTask<String, String, String> {
             editor.apply();
             Intent intent = new Intent(context, MenuActivity.class);
             context.startActivity(intent);
-
-
         }
     }
 }
